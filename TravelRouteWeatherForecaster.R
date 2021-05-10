@@ -24,10 +24,6 @@ origin2 =
 origin3 = 
   "164 W 31st St, Chattanooga, TN 37410"
 
-# The Shipping Location of the Order
-destination = 
-  "73 Upper Brush Hill Rd. Carbondale, IL 62901"
-
 # Register Google Cloud Key
 register_google(
   key = 
@@ -36,7 +32,7 @@ register_google(
 
 # Read in Test Data
 orders = 
-  read.csv("input/Data for Thomas.csv")
+  read.csv("input/Orders.csv")
 
 # Add a leading zero to 4-digit ZIPs
 orders$Postal.Code = 
@@ -138,8 +134,6 @@ calculate_optimal_origin =
   
     
     return(origin)
-    
-    
   }
 
 # Apply calculate_optimal_origin() to each shipping address
@@ -165,7 +159,6 @@ shipping_warehouses =
 orders$Shipping.Warehouse = 
   shipping_warehouses
 
-
 # Pull Driving Route from Point of Origin to Destination
 get_shipping_routes = 
   function(x, y, z){
@@ -179,7 +172,6 @@ get_shipping_routes =
         structure = 
           "legs"
       )
-
 
     # Pull all start points for longitude and latitude
     start = 
@@ -329,7 +321,6 @@ get_shipping_routes =
     forecasts$Order.Number = 
       z
 
-    
     data_to_append_to_order = 
       forecasts %>%
       select(
@@ -341,15 +332,10 @@ get_shipping_routes =
       ) %>% 
       unique()
     
-    
     return(data_to_append_to_order)
     
     
   }
-
-
-
-
 
 df = 
   mapply(
@@ -361,14 +347,7 @@ df =
       FALSE
     )
 
-
-
-
 df = 
   rbindlist(df)
-
-
-orders$Item.Name
-
 
 
